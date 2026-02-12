@@ -56,3 +56,6 @@ PawPal+ helps track pet tasks.
 Run:
 python -m pytest
 
+## Demo
+![Final Demo](final_app.png)
+
