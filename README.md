@@ -44,4 +44,15 @@ pip install -r requirements.txt
 6. Connect your logic to the Streamlit UI in `app.py`.
 7. Refine UML so it matches what you actually built.
 
+# PawPal+
+
+PawPal+ helps track pet tasks.
+
+## Features
+- Add pets and tasks
+- Sort tasks by time
+
+## Testing
+Run:
+python -m pytest
 

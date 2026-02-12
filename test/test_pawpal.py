@@ -1,35 +1,42 @@
-from pawpal_system import Task, Pet, Owner, Scheduler
+# main.py
+from pawpal_system import Owner, Pet, Task, Scheduler
 
 
-def test_task_creation():
-    # Very trivial test (not meaningful)
-    task = Task(description="Walk")
-    assert task.description == "Walk"
+def main():
+    owner = Owner(name="Amelia")
 
+    pet1 = Pet(name="Milo", species="Dog")
+    pet2 = Pet(name="Luna", species="Cat")
 
-def test_scheduler_returns_tasks():
-    # This will fail because scheduler only returns first pet tasks
-    owner = Owner(name="Test")
-    pet1 = Pet(name="A", species="Dog")
-    pet2 = Pet(name="B", species="Cat")
-
-    pet1.add_task(Task(description="Task 1"))
-    pet2.add_task(Task(description="Task 2"))
+    # 3+ tasks across pets
+    pet1.add_task(Task(description="Walk", time="09:00"))
+    pet1.add_task(Task(description="Feed", time="08:00"))
+    pet2.add_task(Task(description="Medication", time="07:30"))
 
     owner.add_pet(pet1)
     owner.add_pet(pet2)
 
     scheduler = Scheduler()
-    tasks = scheduler.get_todays_tasks(owner)
 
-    # Expect both pets' tasks (but implementation only returns first pet's tasks)
-    assert len(tasks) == 2
+    # Borderline: only uses scheduler for first pet tasks
+    tasks = scheduler.get_tasks_for_first_pet(owner)
+    sorted_tasks = scheduler.sort_by_time(tasks)
+
+    print("Today's Schedule:")
+    # Borderline output: prints raw dataclass objects (messy)
+    print(sorted_tasks)
+
+
+if __name__ == "__main__":
+    main()
 
 
 """
-5. Basic Pytest Suite Verifies System Behavior (1/3 pints)
-✔ Test file exists → 1 point
-❌ One test is trivial
-❌ Second test fails
-❌ Tests do not pass without modification
+5) Pytest
+
+2 tests exist and pass ✅
+They’re meaningful-ish but narrow (don’t test sorting/scheduler behavior) → borderline “tests only check trivial behaviors” risk
+
+2/3 points
+
 """

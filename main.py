@@ -1,35 +1,38 @@
 # main.py
 from pawpal_system import Owner, Pet, Task, Scheduler
 
+
 def main():
-    # Create owner
     owner = Owner(name="Amelia")
 
-    # Create two pets
     pet1 = Pet(name="Milo", species="Dog")
     pet2 = Pet(name="Luna", species="Cat")
 
-    # Create several tasks (3+)
-    task1 = Task(description="Walk the dog")
-    task2 = Task(description="Feed the cat")
-    task3 = Task(description="Clean litter box")
+    # 3+ tasks across pets
+    pet1.add_task(Task(description="Walk", time="09:00"))
+    pet1.add_task(Task(description="Feed", time="08:00"))
+    pet2.add_task(Task(description="Medication", time="07:30"))
 
-    # Assign tasks
-    pet1.add_task(task1)
-    pet1.add_task(task2)
-    pet2.add_task(task3)
-
-    # Add pets to owner
     owner.add_pet(pet1)
     owner.add_pet(pet2)
 
-    # Scheduler is created but not meaningfully used
     scheduler = Scheduler()
 
-    # Minimal / unclear output
-    print("\n")
-    print(owner)
-    print("\n\nPartial credit: Demo creates objects but does not use the Scheduler meaningfully.")
+    # Borderline: only uses scheduler for first pet tasks
+    tasks = scheduler.get_tasks_for_first_pet(owner)
+    sorted_tasks = scheduler.sort_by_time(tasks)
+
+    print("Today's Schedule:")
+    # Borderline output: prints raw dataclass objects (messy)
+    print(sorted_tasks)
+
 
 if __name__ == "__main__":
     main()
+
+"""
+2/3 points :
+Owner + 2 pets + 3+ tasks
+Scheduler used for an algorithm (sorting)
+Output not very readable / doesn’t show full workflow / doesn’t reflect multi-pet logic
+"""

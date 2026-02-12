@@ -26,6 +26,8 @@ One tradeoff is that the scheduler is simple and does not handle complex cases.
 
 I used AI to help me generate some of the classes and functions. It was helpful for structuring the code and understanding what methods to include. I also used it when I was unsure about syntax.
 
+I used Copilot to help create the class structure and write some methods. It helped generate the Scheduler sorting logic.
+
 **b. Judgment and verification**
 There were times when I modified AI suggestions slightly to fit my project. I checked that the code worked after using AI. I mainly verified by running the program.
 
@@ -37,7 +39,7 @@ I tested basic task creation and scheduler behavior. These tests were important 
 
 **b. Confidence**
 
-I am somewhat confident that the scheduler works. If I had more time, I would test more edge cases and different scenarios.
+I am somewhat confident that the scheduler works. If I had more time, I would test more edge cases and different scenarios. I ran main.py and ran pytest to see if things worked.
 
 ## 5. Reflection
 

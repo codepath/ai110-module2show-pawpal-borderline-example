@@ -3,25 +3,14 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 
-"""
-Intentionally partial / off-spec implementation for a low-scoring example repo.
-
-Notes (intentional):
-- Task does NOT include due time/date.
-- Task does NOT include a meaningful method like mark_complete().
-- Scheduler logic is shallow and does not implement meaningful algorithmic features.
-- Cross-pet scheduling is incomplete.
-
-2/4 points for 2. Implementation of core classes matches the design
-"""
-
-
 @dataclass
 class Task:
     description: str
+    time: str  # "HH:MM" as a string (borderline choice)
     completed: bool = False
-    # Intentionally missing: due_time / due_date, frequency, etc.
-    # Intentionally missing: mark_complete() method
+
+    def mark_complete(self) -> None:
+        self.completed = True
 
 
 @dataclass
@@ -45,34 +34,41 @@ class Owner:
     def add_pet(self, pet: Pet) -> None:
         self.pets.append(pet)
 
+    # Borderline: No clean get_all_tasks() helper (Scheduler must dig through pets)
+
 
 class Scheduler:
     """
-    Intentionally shallow "scheduler":
-    - Only returns tasks for the first pet (does not operate across multiple pets)
-    - No sorting/filtering/conflict detection/recurrence logic
+    Borderline scheduler:
+    - Implements ONE algorithmic feature: sorting by time
+    - But only sorts tasks for the FIRST pet (does not operate across multiple pets)
+    - No conflict detection / recurrence / filtering
+
+    3. Algorithmic Features:
+    Implements sorting by time ✅ (1 feature)
+    Does not implement a second feature ❌
+    Does not operate across multiple pets ❌
+    1/3 points
     """
 
-    def get_todays_tasks(self, owner: Owner) -> List[Task]:
+    def get_tasks_for_first_pet(self, owner: Owner) -> List[Task]:
         if not owner.pets:
             return []
-
-        # Intentionally incomplete: only handles the first pet.
         return owner.pets[0].tasks
 
-    def summarize(self, tasks: List[Task]) -> str:
-        # Intentionally low-quality output formatting.
-        return str(tasks)
-    
     def sort_by_time(self, tasks: List[Task]) -> List[Task]:
-        return tasks  # TODO
-    
-
-# GRADER CALIBRATION NOTE:
-# Scheduler implementation is intentionally shallow:
-# - No sorting/filtering/conflict detection/recurrence logic
-# - Does not operate across multiple pets
-# - Returns tasks without additional processing
-# Expected score for rubric section #3: 0/3
+        # Borderline: assumes "HH:MM" always valid; no validation
+        return sorted(tasks, key=lambda t: t.time)
 
 
+"""
+2) Core Classes
+
+Task.description, Task.time, Task.completed, Task.mark_complete() ✅
+Pet requirements: identifying info + tasks + methods to manage (Pet.name/species, tasks, add_task, list_tasks) ✅
+Owner requirements: identifying info + pets + methods (Owner.name, pets, add_pet) ✅
+Scheduler requirement: retrieve/organize/manage tasks across pets (not just hold data)
+Borderline issue: your scheduler retrieves tasks for only the first pet and sorting applies only to that list. That’s still “some retrieval/organize,” but not robust and not truly “across pets.”
+
+3/4 points
+"""
